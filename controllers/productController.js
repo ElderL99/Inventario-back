@@ -19,8 +19,23 @@ const getAllProducts = async (req, res) => {
     res.status(500).json({ message: 'Error al obtener productos' });
   }
 };
+
+const deleteProductUseCase = require('../usecases/products/deleteProduct');
+
+const deleteProduct = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const result = await deleteProductUseCase(id);
+    res.json(result);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
 module.exports = {
   createProduct,
-  getAllProducts
+  getAllProducts,
+  deleteProduct
 
 };
