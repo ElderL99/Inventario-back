@@ -10,7 +10,7 @@ const registerEntry = async ({ productId, quantity, userId }) => {
     product: productId,
     quantity,
     user: userId,
-    note: "",
+    note: note || "",
   });
 
   // Aumenta el stock del producto

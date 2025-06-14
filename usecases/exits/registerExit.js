@@ -18,7 +18,7 @@ const registerExit = async ({ productId, quantity, userId }) => {
     product: productId,
     quantity,
     user: userId,
-    note: `Salida registrada por el usuario ${userId}`,
+    note: note || "",
   });
 
   // Disminuye el stock del producto
