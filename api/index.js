@@ -7,7 +7,7 @@ dotenv.config();
 connectDB();
 
 const app = express();
-const cors = require('cors')
+
 app.use(cors({
   origin: ['http://localhost:3000', 'https://tudominio-front.vercel.app'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
