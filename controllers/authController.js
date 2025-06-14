@@ -1,5 +1,15 @@
 const loginUserUseCase = require('../usecases/auth/loginUser');
 const getMeUseCase = require('../usecases/auth/getMe');
+const registerUserUseCase = require("../usecases/auth/registerUser");
+
+const registerUser = async (req, res) => {
+  try {
+    const result = await registerUserUseCase(req.body);
+    res.status(201).json(result);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
 
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
@@ -20,4 +30,4 @@ const getMe = async (req, res) => {
   }
 };
 
-module.exports = { loginUser, getMe };
+module.exports = { loginUser, getMe , registerUser };

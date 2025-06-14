@@ -8,15 +8,18 @@ const {
   searchProducts,
   fetchProductById
 } = require('../controllers/productController');
+
 const authMiddleware = require('../middleware/authMiddleware');
+const allowRoles = require('../middleware/roleMiddleware');
 
-router.post('/', authMiddleware, createProduct);
+// Solo admin puede crear, editar o borrar
+router.post('/', authMiddleware, allowRoles("admin"), createProduct);
+router.put('/:id', authMiddleware, allowRoles("admin"), updateProduct);
+router.delete('/:id', authMiddleware, allowRoles("admin"), deleteProduct);
+
+// Todos los roles autenticados pueden consultar
 router.get('/', authMiddleware, getAllProducts);
-router.delete('/:id', authMiddleware, deleteProduct);
-router.put('/:id', authMiddleware, updateProduct);
 router.get('/search', authMiddleware, searchProducts);
-router.get("/:id", authMiddleware, fetchProductById);
-
-
+router.get('/:id', authMiddleware, fetchProductById);
 
 module.exports = router;

@@ -4,15 +4,31 @@ const updateProductUseCase = require('../usecases/products/updateProduct');
 const deleteProductUseCase = require('../usecases/products/deleteProduct');
 const searchProductsUseCase = require('../usecases/products/searchProducts');
 const getProductById = require("../usecases/products/getProductById");
+const Product = require("../models/Product");
+
 
 const createProduct = async (req, res) => {
+  const { name, category } = req.body;
+
   try {
+    const existingProduct = await Product.findOne({
+      name: name.trim(),
+      category: category.trim()
+    });
+
+    if (existingProduct) {
+      return res.status(400).json({
+        message: "Ya existe un producto con ese nombre en esta categoría"
+      });
+    }
+
     const product = await createProductUseCase(req.body);
     res.status(201).json(product);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 };
+
 
 
 const getAllProducts = async (req, res) => {

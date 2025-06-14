@@ -14,6 +14,10 @@ const registerEntry = async ({ productId, quantity, userId }) => {
 
   // Aumenta el stock del producto
   product.quantity += quantity;
+
+  // Actualiza el status según la cantidad
+  product.status = product.quantity > 0 ? "disponible" : "no disponible";
+
   await product.save();
 
   return entry;
