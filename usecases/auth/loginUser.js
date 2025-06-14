@@ -1,44 +1,25 @@
-const mongoose = require('mongoose')
-const bcrypt = require('bcrypt')
+const User = require('../../models/User')
+const jwt = require('jsonwebtoken')
 
-const userSchema = new mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: true,
-    },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    password: {
-      type: String,
-      required: true,
-    },
-    role: {
-      type: String,
-      default: 'user',
-    },
-  },
-  {
-    timestamps: true,
+const loginUser = async ({ email, password }) => {
+  const user = await User.findOne({ email })
+
+  if (!user || !(await user.matchPassword(password))) {
+    throw new Error('Credenciales inválidas')
   }
-)
 
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+    expiresIn: '7d'
+  })
 
-userSchema.methods.matchPassword = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password)
+  return {
+    token, 
+    user: {
+      id: user._id,
+      name: user.name,
+      email: user.email,
+    }
+  }
 }
 
-
-userSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) return next()
-
-  const salt = await bcrypt.genSalt(10)
-  this.password = await bcrypt.hash(this.password, salt)
-  next()
-})
-
-const User = mongoose.model('User', userSchema)
-module.exports = User
+module.exports = loginUser
