@@ -4,7 +4,7 @@ const getEntries = require("../usecases/entries/getEntries");
 const createEntry = async (req, res, next) => {
   try {
     const { productId, quantity } = req.body;
-    const entry = await registerEntry({ productId, quantity, userId: req.user.id });
+    const entry = await registerEntry({ productId, quantity, userId: req.user.id , note: `Entrada registrada por el usuario ${req.user.id}` });
     res.status(201).json(entry);
   } catch (err) {
     next(err);
