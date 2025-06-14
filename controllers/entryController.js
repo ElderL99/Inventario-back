@@ -14,7 +14,7 @@ const createEntry = async (req, res, next) => {
       productId,
       quantity,
       userId: req.user.id,
-      note, 
+      note,
     });
 
     res.status(201).json(entry);
