@@ -6,7 +6,7 @@ const getEntries = async () => {
     .populate('user', 'name')
     .sort({ date: -1 });
 
-    console.log('[DEBUG] Entradas encontradas:', entries.length)
+    
 
   return entries;
 };

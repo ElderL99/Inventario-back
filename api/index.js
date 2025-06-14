@@ -9,7 +9,7 @@ connectDB();
 const app = express();
 
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://tudominio-front.vercel.app'],
+  origin: ['http://localhost:4000', 'https://tudominio-front.vercel.app'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
@@ -30,7 +30,7 @@ app.get('/', (req, res) => {
 });
 
 if (require.main === module) {
-  const PORT = process.env.PORT || 4000;
+  const PORT = process.env.PORT || 3000;
   app.listen(PORT, () => {
     console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
   });

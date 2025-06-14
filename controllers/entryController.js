@@ -6,11 +6,9 @@ const createEntry = async (req, res, next) => {
     console.log('[ENTRY CONTROLLER]', {
       body: req.body,
       user: req.user,
-      note,
-      user: req.user ? req.user.id : 'No user found',
     });
 
-    const { productId, quantity, note } = req.body; 
+    const { productId, quantity, note } = req.body;
 
     const entry = await registerEntry({
       productId,
@@ -25,6 +23,7 @@ const createEntry = async (req, res, next) => {
     next(err);
   }
 };
+
 
 const fetchEntries = async (req, res, next) => {
   try {

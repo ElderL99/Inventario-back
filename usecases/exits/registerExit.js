@@ -1,7 +1,7 @@
 const Exit = require("../../models/Exit");
 const Product = require("../../models/Product");
 
-const registerExit = async ({ productId, quantity, userId }) => {
+const registerExit = async ({ productId, quantity, userId, note }) => {
   const product = await Product.findById(productId);
   if (!product) throw new Error("Producto no encontrado");
 
@@ -13,7 +13,6 @@ const registerExit = async ({ productId, quantity, userId }) => {
     throw new Error("Stock insuficiente para realizar la salida");
   }
 
-  // Crear salida
   const exit = await Exit.create({
     product: productId,
     quantity,
@@ -21,12 +20,8 @@ const registerExit = async ({ productId, quantity, userId }) => {
     note: note || "",
   });
 
-  // Disminuye el stock del producto
   product.quantity -= quantity;
-
-  // Actualiza el estado del producto
   product.status = product.quantity > 0 ? "disponible" : "no disponible";
-
   await product.save();
 
   return exit;
