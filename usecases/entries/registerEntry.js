@@ -1,27 +1,30 @@
-const Entry = require("../../models/Entry");
+const Exit = require("../../models/Exit");
 const Product = require("../../models/Product");
 
-const registerEntry = async ({ productId, quantity, userId }) => {
+const registerExit = async ({ productId, quantity, userId, note }) => {
   const product = await Product.findById(productId);
   if (!product) throw new Error("Producto no encontrado");
 
-  // Crear la entrada
-  const entry = await Entry.create({
+  if (quantity <= 0) {
+    throw new Error("La cantidad debe ser mayor a 0");
+  }
+
+  if (product.quantity < quantity) {
+    throw new Error("Stock insuficiente para realizar la salida");
+  }
+
+  const exit = await Exit.create({
     product: productId,
     quantity,
     user: userId,
-    note: note || "",
+    note: note || "", 
   });
 
-  // Aumenta el stock del producto
-  product.quantity += quantity;
-
-  // Actualiza el status según la cantidad
+  product.quantity -= quantity;
   product.status = product.quantity > 0 ? "disponible" : "no disponible";
-
   await product.save();
 
-  return entry;
+  return exit;
 };
 
-module.exports = registerEntry;
+module.exports = registerExit;
