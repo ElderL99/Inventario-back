@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('../utils/db.js');
+const errorHandler = require('../middleware/errorHandler')
 
 dotenv.config();
 connectDB();
@@ -9,7 +10,7 @@ connectDB();
 const app = express();
 
 app.use(cors({
-  origin: ['http://localhost:4000', 'https://tudominio-front.vercel.app'],
+  origin: ['http://localhost:3001', 'https://tudominio-front.vercel.app'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
@@ -36,4 +37,5 @@ if (require.main === module) {
   });
 }
 
+app.use(errorHandler)
 module.exports = app;
