@@ -8,13 +8,13 @@ const createEntry = async (req, res, next) => {
       user: req.user,
     });
 
-    const { productId, quantity } = req.body;
+    const { productId, quantity, note } = req.body; 
 
     const entry = await registerEntry({
       productId,
       quantity,
       userId: req.user.id,
-      note: `Entrada registrada por el usuario ${req.user.id}`,
+      note, 
     });
 
     res.status(201).json(entry);
@@ -23,7 +23,6 @@ const createEntry = async (req, res, next) => {
     next(err);
   }
 };
-
 
 const fetchEntries = async (req, res, next) => {
   try {

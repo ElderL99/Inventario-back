@@ -3,8 +3,15 @@ const getExits = require("../usecases/exits/getExits");
 
 const createExit = async (req, res, next) => {
   try {
-    const { productId, quantity } = req.body;
-    const exit = await registerExit({ productId, quantity, userId: req.user.id , note: `Salida registrada por el usuario ${req.user.id}` });
+    const { productId, quantity, note } = req.body; 
+
+    const exit = await registerExit({
+      productId,
+      quantity,
+      userId: req.user.id,
+      note, 
+    });
+
     res.status(201).json(exit);
   } catch (err) {
     next(err);
