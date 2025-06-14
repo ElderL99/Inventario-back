@@ -1,5 +1,8 @@
 const createProductUseCase = require('../usecases/products/createProduct');
 const getAllProductsUseCase = require('../usecases/products/getAllProducts');
+const updateProductUseCase = require('../usecases/products/updateProduct');
+const deleteProductUseCase = require('../usecases/products/deleteProduct');
+const searchProductsUseCase = require('../usecases/products/searchProducts');
 
 const createProduct = async (req, res) => {
   try {
@@ -20,7 +23,7 @@ const getAllProducts = async (req, res) => {
   }
 };
 
-const deleteProductUseCase = require('../usecases/products/deleteProduct');
+
 
 const deleteProduct = async (req, res) => {
   const { id } = req.params;
@@ -33,9 +36,34 @@ const deleteProduct = async (req, res) => {
   }
 };
 
+const updateProduct = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const updated = await updateProductUseCase(id, req.body);
+    res.json(updated);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+
+
+const searchProducts = async (req, res) => {
+  try {
+    const results = await searchProductsUseCase(req.query);
+    res.json(results);
+  } catch (error) {
+    res.status(500).json({ message: 'Error al buscar productos' });
+  }
+};
+
+
 module.exports = {
   createProduct,
   getAllProducts,
-  deleteProduct
+  deleteProduct,
+  updateProduct,
+  searchProducts,
 
 };
