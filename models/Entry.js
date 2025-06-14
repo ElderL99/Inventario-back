@@ -11,6 +11,10 @@ const entrySchema = new mongoose.Schema({
     required: true,
     min: 1,
   },
+  note: {
+    type: String,
+    default: '', 
+  },
   date: {
     type: Date,
     default: Date.now,
