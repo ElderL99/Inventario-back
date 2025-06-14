@@ -1,8 +1,12 @@
-const Exit = require("../../models/Exit");
+const Entry = require("../../models/Entry");
 
-const getExits = async () => {
-  const exits = await Exit.find().populate("product").populate("user");
-  return exits;
+const getEntries = async () => {
+  const entries = await Entry.find()
+    .populate('product', 'name category') 
+    .populate('user', 'name')            
+    .sort({ date: -1 })                   
+
+  return entries;
 };
 
-module.exports = getExits;
+module.exports = getEntries;

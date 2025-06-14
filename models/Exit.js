@@ -19,6 +19,10 @@ const exitSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
+  note: {
+    type: String,
+    default: '', // Nota opcional
+  },
 });
 
 module.exports = mongoose.model("Exit", exitSchema);
