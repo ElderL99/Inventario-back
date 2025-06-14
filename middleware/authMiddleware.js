@@ -8,7 +8,11 @@ const authMiddleware = async (req, res, next) => {
     try {
       const token = authHeader.split(' ')[1];
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      req.user = await User.findById(decoded.id).select('-password');
+
+      const userId = decoded.user?.id 
+      if (!userId) return res.status(401).json({ message: 'Token inválido (sin user.id)' })
+
+      req.user = await User.findById(userId).select('-password');
       next();
     } catch (err) {
       return res.status(401).json({ message: 'Token inválido' });
