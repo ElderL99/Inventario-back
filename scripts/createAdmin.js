@@ -1,6 +1,6 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+
 const User = require('../models/User');
 const connectDB = require('../utils/db');
 
@@ -20,7 +20,7 @@ const validatePassword = (password) => {
     process.exit(1);
   }
 
-  const hashedPassword = await bcrypt.hash(password, 10);
+
 
   const exists = await User.findOne({ email });
   if (exists) {
@@ -31,7 +31,7 @@ const validatePassword = (password) => {
   const user = await User.create({
     name: 'Nancy',
     email,
-    password: hashedPassword,
+    password,
     role: 'admin' // cmbia el rol admin o user
   });
 

@@ -7,10 +7,14 @@ dotenv.config();
 connectDB();
 
 const app = express();
+const cors = require('cors')
 app.use(cors({
-  origin: 'http://localhost:3000', //cambiar el dominio según tu frontend
-  credentials: true
-}));
+  origin: ['http://localhost:3000', 'https://tudominio-front.vercel.app'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+}))
+
 app.use(express.json());
 
 app.use('/api/auth', require('../routes/auth'));
