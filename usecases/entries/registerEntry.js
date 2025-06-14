@@ -10,6 +10,7 @@ const registerEntry = async ({ productId, quantity, userId }) => {
     product: productId,
     quantity,
     user: userId,
+    note: `Entrada registrada por el usuario ${userId}`,
   });
 
   // Aumenta el stock del producto
