@@ -3,6 +3,7 @@ const getAllProductsUseCase = require('../usecases/products/getAllProducts');
 const updateProductUseCase = require('../usecases/products/updateProduct');
 const deleteProductUseCase = require('../usecases/products/deleteProduct');
 const searchProductsUseCase = require('../usecases/products/searchProducts');
+const getProductById = require("../usecases/products/getProductById");
 
 const createProduct = async (req, res) => {
   try {
@@ -23,6 +24,14 @@ const getAllProducts = async (req, res) => {
   }
 };
 
+const fetchProductById = async (req, res, next) => {
+  try {
+    const product = await getProductById(req.params.id);
+    res.json(product);
+  } catch (err) {
+    next(err);
+  }
+};
 
 
 const deleteProduct = async (req, res) => {
@@ -65,5 +74,6 @@ module.exports = {
   deleteProduct,
   updateProduct,
   searchProducts,
+  fetchProductById,
 
 };

@@ -5,7 +5,8 @@ const {
   getAllProducts,
   deleteProduct,
   updateProduct,
-  searchProducts
+  searchProducts,
+  fetchProductById
 } = require('../controllers/productController');
 const authMiddleware = require('../middleware/authMiddleware');
 
@@ -14,6 +15,8 @@ router.get('/', authMiddleware, getAllProducts);
 router.delete('/:id', authMiddleware, deleteProduct);
 router.put('/:id', authMiddleware, updateProduct);
 router.get('/search', authMiddleware, searchProducts);
+router.get("/:id", authMiddleware, fetchProductById);
+
 
 
 module.exports = router;
