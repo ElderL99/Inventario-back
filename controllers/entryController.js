@@ -6,6 +6,8 @@ const createEntry = async (req, res, next) => {
     console.log('[ENTRY CONTROLLER]', {
       body: req.body,
       user: req.user,
+      note,
+      user: req.user ? req.user.id : 'No user found',
     });
 
     const { productId, quantity, note } = req.body; 
