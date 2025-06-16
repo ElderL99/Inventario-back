@@ -11,7 +11,7 @@ const app = express();
 
 
 app.use(cors({
-  origin: ['http://localhost:3001', 'https://inventario-front-jade.vercel.app'],
+  origin: ['http://localhost:3001','https://inventario-front-jade.vercel.app','https://inventario-front-eta.vercel.app'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], 
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
