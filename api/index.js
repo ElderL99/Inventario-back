@@ -9,6 +9,7 @@ connectDB();
 
 const app = express();
 
+
 app.use(cors({
   origin: ['http://localhost:3001', 'https://inventario-front-jade.vercel.app'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], 
@@ -16,22 +17,24 @@ app.use(cors({
   credentials: true,
   preflightContinue: false,
   optionsSuccessStatus: 204 
-}))
+}));
+
+
+app.options('*', cors());
 
 
 app.use(express.json());
 
+
 app.use('/api/auth', require('../routes/auth'));
 app.use('/api/products', require('../routes/products'));
-app.use("/api/entries", require("../routes/entries"));
-app.use("/api/exits", require("../routes/exits"));
-
-
-
+app.use('/api/entries', require('../routes/entries'));
+app.use('/api/exits', require('../routes/exits'));
 
 app.get('/', (req, res) => {
   res.json({ message: 'API de Inventario funcionando 🎉' });
 });
+
 
 if (require.main === module) {
   const PORT = process.env.PORT || 3000;
@@ -40,5 +43,7 @@ if (require.main === module) {
   });
 }
 
-app.use(errorHandler)
+
+app.use(errorHandler);
+
 module.exports = app;
