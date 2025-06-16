@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('../utils/db.js');
-const errorHandler = require('../middleware/errorHandler')
+const errorHandler = require('../middleware/errorHandler');
 
 dotenv.config();
 connectDB();
@@ -10,21 +10,19 @@ connectDB();
 const app = express();
 
 
-app.use(cors({
-  origin: "https://inventario-front-jade.vercel.app/",
+const corsOptions = {
+  origin: "https://inventario-front-jade.vercel.app",
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], 
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
   preflightContinue: false,
   optionsSuccessStatus: 204 
-}));
-
-
-app.options('*', cors());
+};
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); 
 
 
 app.use(express.json());
-
 
 app.use('/api/auth', require('../routes/auth'));
 app.use('/api/products', require('../routes/products'));
@@ -42,7 +40,6 @@ if (require.main === module) {
     console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
   });
 }
-
 
 app.use(errorHandler);
 
