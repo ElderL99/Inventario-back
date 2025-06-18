@@ -11,7 +11,7 @@ const app = express();
 
 
 app.use(cors({
-  origin: "http://vercel.com/elder-l99/inventario-front",
+  origin: "https://inventario-front-jade.vercel.app/",
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS','PATCH'], 
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
