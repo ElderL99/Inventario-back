@@ -12,8 +12,8 @@ const validatePassword = (password) => {
 (async () => {
   await connectDB();
 
-  const email = 'user@user.com';
-  const password = 'User@12345';
+  const email = 'adan@gmail.com';
+  const password = 'Papasconqueso1?';
 
   if (!validatePassword(password)) {
     console.log('❌ La contraseña debe tener al menos una mayúscula y un símbolo');
@@ -29,10 +29,10 @@ const validatePassword = (password) => {
   }
 
   const user = await User.create({
-    name: 'User',
+    name: 'Adan',
     email,
     password,
-    role: 'user' // cmbia el rol admin o user
+    role: 'admin' 
   });
 
   console.log('✅ Usuario admin creado:');

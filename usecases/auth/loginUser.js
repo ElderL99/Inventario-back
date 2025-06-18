@@ -28,7 +28,11 @@ const loginUser = async ({ email, password }) => {
       email: user.email,
       role: user.role,
     }
+
+    
   }
+
+ 
 }
 
 module.exports = loginUser
