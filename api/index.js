@@ -11,13 +11,14 @@ const app = express();
 
 
 app.use(cors({
-  origin: "https://inventario-front-jade.vercel.app/",
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS','PATCH'], 
+  origin: "https://inventario-front-jade.vercel.app",
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
   preflightContinue: false,
-  optionsSuccessStatus: 204 
-}));
+  optionsSuccessStatus: 204
+}))
+
 
 
 
